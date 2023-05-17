@@ -7,18 +7,15 @@ use App\Helpers\CacheKeysHelper;
 use App\Helpers\FileDimensionHelper;
 use App\Helpers\LanguageHelper;
 use App\Helpers\MainHelper;
-use App\Models\CategoryPage\CategoryPage;
-use App\Models\CategoryPage\CategoryPageTranslation;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Cache;
 use Modules\RetailObjects\Models\RetailObject;
+use Modules\RetailObjects\Models\RetailObjectTranslation;
 use Modules\Team\Http\Requests\TeamStoreRequest;
 use Modules\Team\Http\Requests\TeamUpdateRequest;
-use Modules\Team\Models\Team;
-use Modules\Team\Models\TeamTranslation;
 
 class RetailObjectsController extends Controller
 {
@@ -28,7 +25,7 @@ class RetailObjectsController extends Controller
             RetailObject::cacheUpdate();
         }
 
-        return view('retailobjects::admin.index', ['teamMembers' => Cache::get(CacheKeysHelper::$RETAIL_OBJECT_ADMIN)]);
+        return view('retailobjects::admin.index', ['retailObjects' => Cache::get(CacheKeysHelper::$RETAIL_OBJECT_ADMIN)]);
     }
     public function create()
     {
@@ -40,11 +37,11 @@ class RetailObjectsController extends Controller
     public function store(TeamStoreRequest $request, CommonControllerAction $action): RedirectResponse
     {
         if ($request->has('image')) {
-            $request->validate(['image' => FileDimensionHelper::getRules('Team', 1)], FileDimensionHelper::messages('Team', 1));
+            $request->validate(['image' => FileDimensionHelper::getRules('RetailObjects', 1)], FileDimensionHelper::messages('RetailObjects', 1));
         }
         $team = $action->doSimpleCreate(RetailObject::class, $request);
-        $action->updateUrlCache($team, TeamTranslation::class);
-        $action->storeSeo($request, $team, 'Team');
+        $action->updateUrlCache($team, RetailObjectTranslation::class);
+        $action->storeSeo($request, $team, 'RetailObjects');
         RetailObject::cacheUpdate();
 
         $team->storeAndAddNew($request);
@@ -56,8 +53,8 @@ class RetailObjectsController extends Controller
         $retailObject = RetailObject::whereId($id)->with('translations')->first();
         MainHelper::goBackIfNull($retailObject);
 
-        return view('team::admin.edit', [
-            'teamMember'    => $retailObject,
+        return view('retailobjects::admin.edit', [
+            'retailObject'    => $retailObject,
             'languages'     => LanguageHelper::getActiveLanguages(),
             'fileRulesInfo' => RetailObject::getUserInfoMessage()
         ]);
@@ -84,12 +81,12 @@ class RetailObjectsController extends Controller
         $retailObject = RetailObject::whereId($id)->with('translations')->first();
         MainHelper::goBackIfNull($retailObject);
 
-        $action->doSimpleUpdate(RetailObject::class, TeamTranslation::class, $retailObject, $request);
-        $action->updateUrlCache($retailObject, TeamTranslation::class);
-        $action->updateSeo($request, $retailObject, 'Team');
+        $action->doSimpleUpdate(RetailObject::class, RetailObjectTranslation::class, $retailObject, $request);
+        $action->updateUrlCache($retailObject, RetailObjectTranslation::class);
+        $action->updateSeo($request, $retailObject, 'RetailObjects');
 
         if ($request->has('image')) {
-            $request->validate(['image' => FileDimensionHelper::getRules('Team', 1)], FileDimensionHelper::messages('Team', 1));
+            $request->validate(['image' => FileDimensionHelper::getRules('RetailObjects', 1)], FileDimensionHelper::messages('RetailObjects', 1));
             $retailObject->saveFile($request->image);
         }
 

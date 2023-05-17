@@ -25,7 +25,7 @@ class RetailObject extends Model implements TranslatableContract, CommonModelInt
 
     public const FILES_PATH = "images/retail_objects";
 
-    public static string $RETAIL_OBJECT_SYSTEM_IMAGE  = "team_image.png";
+    public static string $RETAIL_OBJECT_SYSTEM_IMAGE  = "retail_object_image.png";
     public static string $RETAIL_OBJECT_RATIO         = '1/1';
     public static string $RETAIL_OBJECT_MIMES         = 'jpg,jpeg,png,gif';
     public static string $RETAIL_OBJECT_MAX_FILE_SIZE = '3000';
@@ -104,7 +104,7 @@ class RetailObject extends Model implements TranslatableContract, CommonModelInt
     }
     public function setKeys($array): array
     {
-        $array[1]['sys_image_name'] = trans('objects::admin.index');
+        $array[1]['sys_image_name'] = trans('retailobjects::admin.index');
         $array[1]['sys_image']      = self::$RETAIL_OBJECT_SYSTEM_IMAGE;
         $array[1]['sys_image_path'] = AdminHelper::getSystemImage(self::$RETAIL_OBJECT_SYSTEM_IMAGE);
         $array[1]['ratio']          = self::$RETAIL_OBJECT_RATIO;

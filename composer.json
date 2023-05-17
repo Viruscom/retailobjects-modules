@@ -1,0 +1,24 @@
+{
+    "name": "iwish/retailobjects-module",
+    "description": "",
+    "authors": [
+        {
+            "name": "test",
+            "email": "test@test.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\RetailObjects\\": ""
+        }
+    },
+    "type": "laravel-module"
+}

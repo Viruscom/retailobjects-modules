@@ -1,0 +1,13 @@
+{
+    "name": "RetailObjects",
+    "alias": "retailobjects",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\RetailObjects\\Providers\\RetailObjectsServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

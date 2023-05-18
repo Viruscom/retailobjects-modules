@@ -80,11 +80,11 @@ class RetailObject extends Model implements TranslatableContract, CommonModelInt
     }
     public static function getFileRules(): string
     {
-        return FileDimensionHelper::getRules('Objects', 1);
+        return FileDimensionHelper::getRules('RetailObjects', 1);
     }
     public static function getUserInfoMessage(): string
     {
-        return FileDimensionHelper::getUserInfoMessage('Objects', 1);
+        return FileDimensionHelper::getUserInfoMessage('RetailObjects', 1);
     }
     public static function allocateModule($viewArray)
     {

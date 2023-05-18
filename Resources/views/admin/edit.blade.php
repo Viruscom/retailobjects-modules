@@ -14,9 +14,9 @@
 @endsection
 
 @section('content')
-    @include('team::admin.breadcrumbs')
+    @include('retailobjects::admin.breadcrumbs')
     @include('admin.notify')
-    <form class="my-form" action="{{ route('admin.team.update', ['id' => $teamMember->id]) }}" method="POST" data-form-type="store" enctype="multipart/form-data" autocomplete="off">
+    <form class="my-form" action="{{ route('admin.team.update', ['id' => $retailObject->id]) }}" method="POST" data-form-type="store" enctype="multipart/form-data" autocomplete="off">
         <span class="hidden curr-editor"></span>
         <div class="col-xs-12 p-0">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -37,13 +37,25 @@
                 <div class="tab-content m-b-0">
                     @foreach($languages as $language)
                         @php
-                            $teamMemberTranslate = is_null($teamMember->translate($language->code)) ? $teamMember : $teamMember->translate($language->code);
+                            $retailObjectTranslate = is_null($retailObject->translate($language->code)) ? $retailObject : $retailObject->translate($language->code);
                         @endphp
                         <div id="{{$language->code}}" class="tab-pane fade in @if($language->code === config('default.app.language.code')) active @endif">
-                            @include('admin.partials.on_edit.form_fields.input_text', ['fieldName' => 'title_' . $language->code, 'label' => trans('team::admin.team.title'), 'required' => true, 'model' => $teamMemberTranslate])
-                            @include('admin.partials.on_edit.form_fields.textarea', ['fieldName' => 'announce_' . $language->code, 'rows' => 9, 'label' => trans('admin.announce'), 'required' => false, 'model' => $teamMemberTranslate])
-                            @include('admin.partials.on_edit.form_fields.textarea', ['fieldName' => 'description_' . $language->code, 'rows' => 9, 'label' => trans('admin.description'), 'required' => false, 'model' => $teamMemberTranslate])
-                            @include('admin.partials.on_edit.show_in_language_visibility_checkbox', ['fieldName' => 'visible_' . $language->code, 'model' => $teamMember])
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    @include('admin.partials.on_edit.form_fields.input_text', ['fieldName' => 'title_' . $language->code, 'label' => trans('team::admin.team.title'), 'required' => true, 'model' => $retailObjectTranslate])
+                                    @include('admin.partials.on_edit.form_fields.input_text', ['fieldName' => 'phone_' . $language->code, 'label' => trans('team::admin.team.phone'), 'required' => true, 'model' => $retailObjectTranslate])
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    @include('admin.partials.on_edit.form_fields.input_text', ['fieldName' => 'address_' . $language->code, 'label' => trans('retailobjects::admin.address'), 'required' => true, 'model' => $retailObjectTranslate])
+                                    @include('admin.partials.on_edit.form_fields.input_text', ['fieldName' => 'email_' . $language->code, 'label' => trans('retailobjects::admin.email'), 'required' => true, 'model' => $retailObjectTranslate])
+                                </div>
+                                <div class="col-md-12 col-xs-12">
+                                    @include('admin.partials.on_edit.form_fields.input_text', ['fieldName' => 'map_iframe_' . $language->code, 'label' => trans('retailobjects::admin.map_iframe'), 'required' => true, 'model' => $retailObjectTranslate])
+                                </div>
+                            </div>
+                            @include('admin.partials.on_edit.form_fields.textarea', ['fieldName' => 'announce_' . $language->code, 'rows' => 9, 'label' => trans('admin.announce'), 'required' => false, 'model' => $retailObjectTranslate])
+                            @include('admin.partials.on_edit.form_fields.textarea', ['fieldName' => 'description_' . $language->code, 'rows' => 9, 'label' => trans('admin.description'), 'required' => false, 'model' => $retailObjectTranslate])
+                            @include('admin.partials.on_edit.show_in_language_visibility_checkbox', ['fieldName' => 'visible_' . $language->code, 'model' => $retailObject])
                         </div>
                     @endforeach
                 </div>
@@ -53,20 +65,12 @@
                     @endforeach
                 </ul>
                 <hr>
-                <div class="row">
-                    <div class="col-md-6 col-xs-12">
-                        @include('admin.partials.on_edit.form_fields.input_text', ['fieldName' => 'phone', 'label' => trans('team::admin.team.phone'), 'required' => false, 'model' => $teamMember])
-                    </div>
-                    <div class="col-md-6 col-xs-12">
-                        @include('admin.partials.on_edit.form_fields.input_text', ['fieldName' => 'email', 'label' => trans('team::admin.team.email'), 'required' => false, 'model' => $teamMember])
-                    </div>
-                </div>
-                @include('admin.partials.on_edit.seo', ['model' => $teamMember->seoFields])
+                @include('admin.partials.on_edit.seo', ['model' => $retailObject->seoFields])
                 <div class="form form-horizontal">
                     <div class="form-body">
                         <hr>
-                        @include('admin.partials.on_edit.form_fields.upload_file', ['model' => $teamMember, 'deleteRoute' => route('admin.team.delete-image', ['id'=>$teamMember->id])])
-                        @include('admin.partials.on_edit.active_checkbox', ['model' => $teamMember])
+                        @include('admin.partials.on_edit.form_fields.upload_file', ['model' => $retailObject, 'deleteRoute' => route('admin.team.delete-image', ['id'=>$retailObject->id])])
+                        @include('admin.partials.on_edit.active_checkbox', ['model' => $retailObject])
                     </div>
                     @include('admin.partials.on_edit.form_actions_bottom')
                 </div>

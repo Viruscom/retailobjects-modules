@@ -5,17 +5,17 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{ route('admin.team.index') }}" class="text-black">@lang('team::admin.team.index')</a>
+            <a href="{{ route('admin.retail-objects.index') }}" class="text-black">@lang('retailobjects::admin.index')</a>
         </li>
-        @if(url()->current() === route('admin.team.create'))
+        @if(url()->current() === route('admin.retail-objects.create'))
             <li>
                 <i class="fa fa-angle-right"></i>
-                <a href="{{ route('admin.team.create') }}" class="text-purple">@lang('team::admin.team.create')</a>
+                <a href="{{ route('admin.retail-objects.create') }}" class="text-purple">@lang('retailobjects::admin.create')</a>
             </li>
-        @elseif(Request::segment(3) !== null && url()->current() === route('admin.team.edit', ['id' => Request::segment(3)]))
+        @elseif(Request::segment(3) !== null && url()->current() === route('admin.retail-objects.edit', ['id' => Request::segment(3)]))
             <li>
                 <i class="fa fa-angle-right"></i>
-                <a href="{{ route('admin.team.edit', ['id' => Request::segment(3)]) }}" class="text-purple">@lang('team::admin.team.edit')</a>
+                <a href="{{ route('admin.retail-objects.edit', ['id' => Request::segment(3)]) }}" class="text-purple">@lang('retailobjects::admin.edit')</a>
             </li>
         @endif
     </ul>

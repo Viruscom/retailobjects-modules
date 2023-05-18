@@ -14,9 +14,9 @@
 @endsection
 
 @section('content')
-    @include('team::admin.breadcrumbs')
+    @include('retailobjects::admin.breadcrumbs')
     @include('admin.notify')
-    <form class="my-form" action="{{ route('admin.team.store') }}" method="POST" data-form-type="store" enctype="multipart/form-data" autocomplete="off">
+    <form class="my-form" action="{{ route('admin.retail-objects.store') }}" method="POST" data-form-type="store" enctype="multipart/form-data" autocomplete="off">
         <span class="hidden curr-editor"></span>
         <div class="col-xs-12 p-0">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -37,7 +37,19 @@
                 <div class="tab-content m-b-0">
                     @foreach($languages as $language)
                         <div id="{{$language->code}}" class="tab-pane fade in @if($language->code === config('default.app.language.code')) active @endif">
-                            @include('admin.partials.on_create.form_fields.input_text', ['fieldName' => 'title_' . $language->code, 'label' => trans('team::admin.team.title'), 'required' => true])
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    @include('admin.partials.on_create.form_fields.input_text', ['fieldName' => 'title_' . $language->code, 'label' => trans('retailobjects::admin.title'), 'required' => true])
+                                    @include('admin.partials.on_create.form_fields.input_text', ['fieldName' => 'phone_' . $language->code, 'label' => trans('retailobjects::admin.phone'), 'required' => true])
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    @include('admin.partials.on_create.form_fields.input_text', ['fieldName' => 'address_' . $language->code, 'label' => trans('retailobjects::admin.address'), 'required' => true])
+                                    @include('admin.partials.on_create.form_fields.input_text', ['fieldName' => 'email_' . $language->code, 'label' => trans('retailobjects::admin.email'), 'required' => true])
+                                </div>
+                                <div class="col-md-12 col-xs-12">
+                                    @include('admin.partials.on_create.form_fields.input_text', ['fieldName' => 'map_iframe_' . $language->code, 'label' => trans('retailobjects::admin.map_iframe'), 'required' => true])
+                                </div>
+                            </div>
                             @include('admin.partials.on_create.form_fields.textarea', ['fieldName' => 'announce_' . $language->code, 'rows' => 9, 'label' => trans('admin.announce'), 'required' => false])
                             @include('admin.partials.on_create.form_fields.textarea', ['fieldName' => 'description_' . $language->code, 'rows' => 9, 'label' => trans('admin.description'), 'required' => false])
                             @include('admin.partials.on_create.show_in_language_visibility_checkbox', ['fieldName' => 'visible_' . $language->code])
@@ -50,14 +62,6 @@
                     @endforeach
                 </ul>
                 <hr>
-                <div class="row">
-                    <div class="col-md-6 col-xs-12">
-                        @include('admin.partials.on_create.form_fields.input_text', ['fieldName' => 'phone', 'label' => trans('team::admin.team.phone'), 'required' => false])
-                    </div>
-                    <div class="col-md-6 col-xs-12">
-                        @include('admin.partials.on_create.form_fields.input_text', ['fieldName' => 'email', 'label' => trans('team::admin.team.email'), 'required' => false])
-                    </div>
-                </div>
                 @include('admin.partials.on_create.seo')
                 <div class="form form-horizontal">
                     <div class="form-body">

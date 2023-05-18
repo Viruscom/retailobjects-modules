@@ -14,7 +14,7 @@ class RetailObjectTranslation extends Model implements CommonModelTranslationInt
     use StorageActions;
 
     protected $table    = "retail_object_translation";
-    protected $fillable = ['locale', 'team_id', 'title', 'url', 'announce', 'description', 'visible','address','email', 'phone','map_iframe'];
+    protected $fillable = ['locale', 'retail_object_id', 'title', 'url', 'announce', 'description', 'visible','address','email', 'phone','map_iframe'];
     public static function getLanguageArray($language, $request, $modelId, $isUpdate): array
     {
         $data = [
@@ -56,7 +56,7 @@ class RetailObjectTranslation extends Model implements CommonModelTranslationInt
     }
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Team::class, 'team_id');
+        return $this->belongsTo(RetailObject::class, 'retail_object_id');
     }
     public function language(): BelongsTo
     {

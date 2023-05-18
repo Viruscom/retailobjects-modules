@@ -12,6 +12,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Cache;
+use Modules\RetailObjects\Http\Requests\RetailObjectStoreRequest;
+use Modules\RetailObjects\Http\Requests\RetailObjectsUpdateRequest;
 use Modules\RetailObjects\Models\RetailObject;
 use Modules\RetailObjects\Models\RetailObjectTranslation;
 use Modules\Team\Http\Requests\TeamStoreRequest;
@@ -34,7 +36,7 @@ class RetailObjectsController extends Controller
             'fileRulesInfo' => RetailObject::getUserInfoMessage()
         ]);
     }
-    public function store(TeamStoreRequest $request, CommonControllerAction $action): RedirectResponse
+    public function store(RetailObjectStoreRequest $request, CommonControllerAction $action): RedirectResponse
     {
         if ($request->has('image')) {
             $request->validate(['image' => FileDimensionHelper::getRules('RetailObjects', 1)], FileDimensionHelper::messages('RetailObjects', 1));
@@ -46,7 +48,7 @@ class RetailObjectsController extends Controller
 
         $team->storeAndAddNew($request);
 
-        return redirect()->route('admin.team.index')->with('success-message', trans('admin.common.successful_create'));
+        return redirect()->route('admin.retail-objects.index')->with('success-message', trans('admin.common.successful_create'));
     }
     public function edit($id)
     {
@@ -76,7 +78,7 @@ class RetailObjectsController extends Controller
 
         return redirect()->back()->with('success-message', 'admin.common.successful_edit');
     }
-    public function update($id, TeamUpdateRequest $request, CommonControllerAction $action): RedirectResponse
+    public function update($id, RetailObjectsUpdateRequest $request, CommonControllerAction $action): RedirectResponse
     {
         $retailObject = RetailObject::whereId($id)->with('translations')->first();
         MainHelper::goBackIfNull($retailObject);
@@ -92,7 +94,7 @@ class RetailObjectsController extends Controller
 
         RetailObject::cacheUpdate();
 
-        return redirect()->route('admin.team.index')->with('success-message', 'admin.common.successful_edit');
+        return redirect()->route('admin.retail-objects.index')->with('success-message', 'admin.common.successful_edit');
     }
     public function active($id, $active): RedirectResponse
     {

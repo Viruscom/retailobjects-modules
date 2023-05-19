@@ -2,7 +2,7 @@
     @foreach($retailObjects as $retailObject)
         <div class="map-element">
             <div class="map-wrapper" data-aos="fade-up" data-aos-delay="50">
-                <iframe class="map" allowfullscreen="" frameborder="0" width="100%" height="550" src="{{ $retailObject->imap_iframe }}"></iframe>
+                <iframe class="map" allowfullscreen="" frameborder="0" width="100%" height="550" src="{{ $retailObject->map_iframe }}"></iframe>
             </div>
 
             <h4>{{ $retailObject->title }}</h4>

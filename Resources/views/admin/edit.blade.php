@@ -16,7 +16,7 @@
 @section('content')
     @include('retailobjects::admin.breadcrumbs')
     @include('admin.notify')
-    <form class="my-form" action="{{ route('admin.team.update', ['id' => $retailObject->id]) }}" method="POST" data-form-type="store" enctype="multipart/form-data" autocomplete="off">
+    <form class="my-form" action="{{ route('admin.retail-objects.update', ['id' => $retailObject->id]) }}" method="POST" data-form-type="store" enctype="multipart/form-data" autocomplete="off">
         <span class="hidden curr-editor"></span>
         <div class="col-xs-12 p-0">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -50,7 +50,16 @@
                                     @include('admin.partials.on_edit.form_fields.input_text', ['fieldName' => 'email_' . $language->code, 'label' => trans('retailobjects::admin.email'), 'required' => true, 'model' => $retailObjectTranslate])
                                 </div>
                                 <div class="col-md-12 col-xs-12">
-                                    @include('admin.partials.on_edit.form_fields.input_text', ['fieldName' => 'map_iframe_' . $language->code, 'label' => trans('retailobjects::admin.map_iframe'), 'required' => true, 'model' => $retailObjectTranslate])
+                                    <div class="form-group @if($errors->has('map_iframe_' . $language->code)) has-error @endif">
+                                        <label class="control-label p-b-10">
+                                                <span class="text-purple">* </span>
+                                            {{trans('retailobjects::admin.map_iframe')}} (<span class="text-uppercase">{{$language->code}}</span>):
+                                        </label>
+                                        <input class="form-control" type="text" name="{{'map_iframe_' . $language->code}}" value="{{ old('map_iframe_' . $language->code) ?: $retailObjectTranslate->map_iframe }}">
+                                        @if($errors->has('map_iframe_' . $language->code))
+                                            <span class="help-block">{{ trans($errors->first('map_iframe_' . $language->code)) }}</span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                             @include('admin.partials.on_edit.form_fields.textarea', ['fieldName' => 'announce_' . $language->code, 'rows' => 9, 'label' => trans('admin.announce'), 'required' => false, 'model' => $retailObjectTranslate])
@@ -69,7 +78,7 @@
                 <div class="form form-horizontal">
                     <div class="form-body">
                         <hr>
-                        @include('admin.partials.on_edit.form_fields.upload_file', ['model' => $retailObject, 'deleteRoute' => route('admin.team.delete-image', ['id'=>$retailObject->id])])
+                        @include('admin.partials.on_edit.form_fields.upload_file', ['model' => $retailObject, 'deleteRoute' => route('admin.retail-objects.delete-image', ['id'=>$retailObject->id])])
                         @include('admin.partials.on_edit.active_checkbox', ['model' => $retailObject])
                     </div>
                     @include('admin.partials.on_edit.form_actions_bottom')

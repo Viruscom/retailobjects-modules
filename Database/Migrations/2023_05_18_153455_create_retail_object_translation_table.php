@@ -24,7 +24,7 @@ class CreateRetailObjectTranslationTable extends Migration
             $table->string('address')->nullable()->default(null);
             $table->string('email')->nullable()->default(null);
             $table->string('phone')->nullable()->default(null);
-            $table->string('map_iframe')->nullable()->default(null);
+            $table->text('map_iframe')->nullable()->default(null);
             $table->boolean('visible')->default(true);
             $table->timestamps();
 

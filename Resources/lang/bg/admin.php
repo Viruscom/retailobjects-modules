@@ -9,4 +9,5 @@ return [
     'address'    => 'Адрес',
     'phone'      => 'Телефон',
     'map_iframe' => 'Сорс към Google карта',
+    'no_records' => 'Няма търговски обекти',
 ];

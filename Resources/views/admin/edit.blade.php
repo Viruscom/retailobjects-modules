@@ -42,8 +42,8 @@
                         <div id="{{$language->code}}" class="tab-pane fade in @if($language->code === config('default.app.language.code')) active @endif">
                             <div class="row">
                                 <div class="col-md-6 col-xs-12">
-                                    @include('admin.partials.on_edit.form_fields.input_text', ['fieldName' => 'title_' . $language->code, 'label' => trans('team::admin.team.title'), 'required' => true, 'model' => $retailObjectTranslate])
-                                    @include('admin.partials.on_edit.form_fields.input_text', ['fieldName' => 'phone_' . $language->code, 'label' => trans('team::admin.team.phone'), 'required' => true, 'model' => $retailObjectTranslate])
+                                    @include('admin.partials.on_edit.form_fields.input_text', ['fieldName' => 'title_' . $language->code, 'label' => trans('retailobjects::admin.title'), 'required' => true, 'model' => $retailObjectTranslate])
+                                    @include('admin.partials.on_edit.form_fields.input_text', ['fieldName' => 'phone_' . $language->code, 'label' => trans('retailobjects::admin.phone'), 'required' => true, 'model' => $retailObjectTranslate])
                                 </div>
                                 <div class="col-md-6 col-xs-12">
                                     @include('admin.partials.on_edit.form_fields.input_text', ['fieldName' => 'address_' . $language->code, 'label' => trans('retailobjects::admin.address'), 'required' => true, 'model' => $retailObjectTranslate])

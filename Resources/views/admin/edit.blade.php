@@ -62,7 +62,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @include('admin.partials.on_edit.form_fields.textarea', ['fieldName' => 'announce_' . $language->code, 'rows' => 9, 'label' => trans('admin.announce'), 'required' => false, 'model' => $retailObjectTranslate])
+                            @include('admin.partials.on_edit.form_fields.textarea_without_ckeditor', ['fieldName' => 'announce_' . $language->code, 'rows' => 4, 'label' => trans('admin.announce'), 'required' => false, 'model' => $retailObjectTranslate])
                             @include('admin.partials.on_edit.form_fields.textarea', ['fieldName' => 'description_' . $language->code, 'rows' => 9, 'label' => trans('admin.description'), 'required' => false, 'model' => $retailObjectTranslate])
                             @include('admin.partials.on_edit.show_in_language_visibility_checkbox', ['fieldName' => 'visible_' . $language->code, 'model' => $retailObject])
                         </div>

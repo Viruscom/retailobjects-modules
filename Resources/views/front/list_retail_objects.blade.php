@@ -1,5 +1,8 @@
 <div class="section-maps">
     @foreach($retailObjects as $retailObject)
+        @php
+            $retailObject = $retailObject->translate($languageSlug);
+        @endphp
         <div class="map-element">
             <div class="map-wrapper" data-aos="fade-up" data-aos-delay="50">
                 <iframe class="map" allowfullscreen="" frameborder="0" width="100%" height="550" src="{{ $retailObject->map_iframe }}"></iframe>

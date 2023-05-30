@@ -26,7 +26,7 @@ class RetailObject extends Model implements TranslatableContract, CommonModelInt
     public const FILES_PATH = "images/retail_objects";
 
     public static string $RETAIL_OBJECT_SYSTEM_IMAGE  = "retail_object_image.png";
-    public static string $RETAIL_OBJECT_RATIO         = '1/1';
+    public static string $RETAIL_OBJECT_RATIO         = '3/2';
     public static string $RETAIL_OBJECT_MIMES         = 'jpg,jpeg,png,gif';
     public static string $RETAIL_OBJECT_MAX_FILE_SIZE = '3000';
 

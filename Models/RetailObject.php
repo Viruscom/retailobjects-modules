@@ -39,10 +39,10 @@ class RetailObject extends Model implements TranslatableContract, CommonModelInt
         cache()->forget(CacheKeysHelper::$RETAIL_OBJECT_ADMIN);
         cache()->forget(CacheKeysHelper::$RETAIL_OBJECT_FRONT);
         cache()->remember(CacheKeysHelper::$RETAIL_OBJECT_ADMIN, config('default.app.cache.ttl_seconds'), function () {
-            return self::with('translations')->withTranslation()->orderBy('position')->get();
+            return self::with('translations')->orderBy('position')->get();
         });
         cache()->rememberForever(CacheKeysHelper::$RETAIL_OBJECT_FRONT, function () {
-            return self::active(true)->with('translations')->withTranslation()->orderBy('position')->get();
+            return self::active(true)->with('translations')->orderBy('position')->get();
         });
     }
     public static function getRequestData($request)

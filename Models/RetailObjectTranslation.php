@@ -14,12 +14,12 @@ class RetailObjectTranslation extends Model implements CommonModelTranslationInt
     use StorageActions;
 
     protected $table    = "retail_object_translation";
-    protected $fillable = ['locale', 'retail_object_id', 'title', 'url', 'announce', 'description', 'visible','address','email', 'phone','map_iframe'];
+    protected $fillable = ['locale', 'retail_object_id', 'title', 'url', 'announce', 'description', 'visible', 'address', 'email', 'phone', 'map_iframe'];
     public static function getLanguageArray($language, $request, $modelId, $isUpdate): array
     {
         $data = [
             'locale' => $language->code,
-            'title'  => UrlHelper::makeUniqueTitle($request['title_' . $language->code], $language->code, self::class, $modelId, $isUpdate),
+            'title'  => $request['title_' . $language->code],
             'url'    => UrlHelper::generate($request['title_' . $language->code], self::class, $modelId, $isUpdate)
         ];
 

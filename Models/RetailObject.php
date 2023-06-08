@@ -17,7 +17,6 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Modules\RetailObjects\Models\RetailObjectTranslation;
 
 class RetailObject extends Model implements TranslatableContract, CommonModelInterface, ImageModelInterface
 {
@@ -25,12 +24,12 @@ class RetailObject extends Model implements TranslatableContract, CommonModelInt
 
     public const FILES_PATH = "images/retail_objects";
 
-    public static string $RETAIL_OBJECT_SYSTEM_IMAGE  = "retail_object_image.png";
+    public static string $RETAIL_OBJECT_SYSTEM_IMAGE  = "retailobjects_1_image.png";
     public static string $RETAIL_OBJECT_RATIO         = '3/2';
     public static string $RETAIL_OBJECT_MIMES         = 'jpg,jpeg,png,gif';
     public static string $RETAIL_OBJECT_MAX_FILE_SIZE = '3000';
 
-    public array $translatedAttributes = ['title', 'url', 'announce', 'description', 'visible','address','email', 'phone','map_iframe'];
+    public array $translatedAttributes = ['title', 'url', 'announce', 'description', 'visible', 'address', 'email', 'phone', 'map_iframe'];
     protected    $table                = "retail_objects";
     protected    $fillable             = ['filename', 'position', 'active'];
 
@@ -97,11 +96,6 @@ class RetailObject extends Model implements TranslatableContract, CommonModelInt
                 abort(404);
         }
     }
-
-    public function getSystemImage(): string
-    {
-        return AdminHelper::getSystemImage(self::$RETAIL_OBJECT_SYSTEM_IMAGE);
-    }
     public function setKeys($array): array
     {
         $array[1]['sys_image_name'] = trans('retailobjects::admin.index');
@@ -113,6 +107,10 @@ class RetailObject extends Model implements TranslatableContract, CommonModelInt
         $array[1]['file_rules']     = 'mimes:' . self::$RETAIL_OBJECT_MIMES . '|size:' . self::$RETAIL_OBJECT_MAX_FILE_SIZE . '|dimensions:ratio=' . self::$RETAIL_OBJECT_RATIO;
 
         return $array;
+    }
+    public function getSystemImage(): string
+    {
+        return AdminHelper::getSystemImage(self::$RETAIL_OBJECT_SYSTEM_IMAGE);
     }
     public function getFilepath($filename): string
     {

@@ -40,7 +40,6 @@ class RetailObjectsUpdateRequest extends FormRequest
     public function messages()
     {
         $messages = [];
-
         foreach ($this->LANGUAGES as $language) {
             $messages['title_' . $language->code . '.required']      = 'Полето за заглавие (' . $language->code . ') е задължително';
             $messages['address_' . $language->code . '.required']    = 'Полето за адрес (' . $language->code . ') е задължително';

@@ -7,7 +7,6 @@ use App\Helpers\CacheKeysHelper;
 use App\Helpers\FileDimensionHelper;
 use App\Helpers\LanguageHelper;
 use App\Helpers\MainHelper;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -16,8 +15,6 @@ use Modules\RetailObjects\Http\Requests\RetailObjectStoreRequest;
 use Modules\RetailObjects\Http\Requests\RetailObjectsUpdateRequest;
 use Modules\RetailObjects\Models\RetailObject;
 use Modules\RetailObjects\Models\RetailObjectTranslation;
-use Modules\Team\Http\Requests\TeamStoreRequest;
-use Modules\Team\Http\Requests\TeamUpdateRequest;
 
 class RetailObjectsController extends Controller
 {
@@ -56,7 +53,7 @@ class RetailObjectsController extends Controller
         MainHelper::goBackIfNull($retailObject);
 
         return view('retailobjects::admin.edit', [
-            'retailObject'    => $retailObject,
+            'retailObject'  => $retailObject,
             'languages'     => LanguageHelper::getActiveLanguages(),
             'fileRulesInfo' => RetailObject::getUserInfoMessage()
         ]);
@@ -78,6 +75,16 @@ class RetailObjectsController extends Controller
 
         return redirect()->back()->with('success-message', 'admin.common.successful_edit');
     }
+    public function active($id, $active): RedirectResponse
+    {
+        $retailObject = RetailObject::find($id);
+        MainHelper::goBackIfNull($retailObject);
+
+        $retailObject->update(['active' => $active]);
+        RetailObject::cacheUpdate();
+
+        return redirect()->back()->with('success-message', 'admin.common.successful_edit');
+    }
     public function update($id, RetailObjectsUpdateRequest $request, CommonControllerAction $action): RedirectResponse
     {
         $retailObject = RetailObject::whereId($id)->with('translations')->first();
@@ -95,16 +102,6 @@ class RetailObjectsController extends Controller
         RetailObject::cacheUpdate();
 
         return redirect()->route('admin.retail-objects.index')->with('success-message', 'admin.common.successful_edit');
-    }
-    public function active($id, $active): RedirectResponse
-    {
-        $retailObject = RetailObject::find($id);
-        MainHelper::goBackIfNull($retailObject);
-
-        $retailObject->update(['active' => $active]);
-        RetailObject::cacheUpdate();
-
-        return redirect()->back()->with('success-message', 'admin.common.successful_edit');
     }
     public function delete($id, CommonControllerAction $action): RedirectResponse
     {

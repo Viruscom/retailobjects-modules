@@ -52,7 +52,7 @@
                                 <div class="col-md-12 col-xs-12">
                                     <div class="form-group @if($errors->has('map_iframe_' . $language->code)) has-error @endif">
                                         <label class="control-label p-b-10">
-                                                <span class="text-purple">* </span>
+                                            <span class="text-purple">* </span>
                                             {{trans('retailobjects::admin.map_iframe')}} (<span class="text-uppercase">{{$language->code}}</span>):
                                         </label>
                                         <input class="form-control" type="text" name="{{'map_iframe_' . $language->code}}" value="{{ old('map_iframe_' . $language->code) ?: $retailObjectTranslate->map_iframe }}">
@@ -80,6 +80,8 @@
                         <hr>
                         @include('admin.partials.on_edit.form_fields.upload_file', ['model' => $retailObject, 'deleteRoute' => route('admin.retail-objects.delete-image', ['id'=>$retailObject->id])])
                         @include('admin.partials.on_edit.active_checkbox', ['model' => $retailObject])
+                        <hr>
+                        @include('admin.partials.on_edit.position_in_site_button', ['model' => $retailObject, 'models' => $retailObjects])
                     </div>
                     @include('admin.partials.on_edit.form_actions_bottom')
                 </div>

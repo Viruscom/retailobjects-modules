@@ -43,7 +43,9 @@
             $action->storeSeo($request, $team, 'RetailObjects');
             RetailObject::cacheUpdate();
 
-            $team->storeAndAddNew($request);
+            if ($request->has('submitaddnew')) {
+                return redirect()->back()->with('success-message', 'admin.common.successful_create');
+            }
 
             return redirect()->route('admin.retail-objects.index')->with('success-message', trans('admin.common.successful_create'));
         }
